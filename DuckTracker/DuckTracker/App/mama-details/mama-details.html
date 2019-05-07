@@ -1,0 +1,62 @@
+﻿<div ng-controller="mamaDetailsController">
+    <div class="container">
+        <h4><b>Mama {{mama.Name}}</b></h4>
+        <div class="row">
+            <div class="col-md-8">
+                <div>{{mama}}</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12" style="background-color: whitesmoke">
+                <h5><b>Notes</b></h5>
+                <button class="btn btn-info">Add Note</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h5><b>Litters</b></h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="thead-dark">
+                            <th>
+                                Litter Id
+                            </th>
+                            <th>
+                                Papa Dog
+                            </th>
+                            <th>
+                                Birth Date
+                            </th>
+                            <th>
+                                Puppy Count
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tr ng-repeat="l in litters">
+                        <td>
+                            {{l.LitterId}}
+                        </td>
+                        <td>
+                            <a gg-href="index.html#/Papa/{{m.PapaDogId}}">{{l.PapaDogName}}</a>
+                        </td>
+                        <td>
+                            {{l.BirthDate}}
+                        </td>
+                        <td>
+                            {{l.PuppyCount}}
+                        </td>
+                        <td>
+                            <a ng-href="index.html#/Litter/{{l.LitterId}}"><button class="btn btn-info">Details</button></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

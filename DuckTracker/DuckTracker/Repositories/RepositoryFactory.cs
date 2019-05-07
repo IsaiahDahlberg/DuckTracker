@@ -13,5 +13,20 @@ namespace DuckTracker.Repositories
         {
             return new MamaRepositoryADO();
         }
+
+        public static ILitterRepository CreateLitterRepo()
+        {
+            return new LitterRepositoryADO();
+        }
+
+        public static IPapaRepository CreatePapaRepo()
+        {
+            return new PapaRepositoryADO();
+        }
+
+        public static IMamaNoteRepository CreateMamaNoteRepo()
+        {
+            return new MamaNoteRepositoryADO();
+        }
     }
 }

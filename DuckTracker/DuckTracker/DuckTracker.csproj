@@ -87,6 +87,8 @@
     <Content Include="App\Index.html" />
     <Content Include="App\litter-list\litter-list.html" />
     <Content Include="App\litter-list\litter-list.js" />
+    <Content Include="App\mama-details\mama-details.html" />
+    <Content Include="App\mama-details\mama-details.js" />
     <Content Include="App\mama-list\mama-list.html" />
     <Content Include="App\mama-list\mama-list.js" />
     <Content Include="App\papa-list\papa-list.html" />
@@ -154,11 +156,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\LitterController.cs" />
     <Compile Include="Controllers\MamaController.cs" />
+    <Compile Include="Controllers\PapaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Query\LitterQuery.cs" />
     <Compile Include="Models\Query\MamaDogQuery.cs" />
+    <Compile Include="Models\Query\PapaDogQuery.cs" />
     <Compile Include="Models\Tables\Litter.cs" />
     <Compile Include="Models\Tables\LitterNote.cs" />
     <Compile Include="Models\Tables\MamaDog.cs" />
@@ -166,8 +172,14 @@
     <Compile Include="Models\Tables\PapaDog.cs" />
     <Compile Include="Models\Tables\PapaDogNote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ADO\LitterRepositoryADO.cs" />
+    <Compile Include="Repositories\ADO\MamaNoteRepositoryADO.cs" />
     <Compile Include="Repositories\ADO\MamaRepositoryADO.cs" />
+    <Compile Include="Repositories\ADO\PapaRepositoryADO.cs" />
+    <Compile Include="Repositories\Interfaces\ILitterRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IMamaNoteRepository.cs" />
     <Compile Include="Repositories\Interfaces\IMamaRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPapaRepository.cs" />
     <Compile Include="Repositories\RepositoryFactory.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -103,12 +103,14 @@ GO
 CREATE PROCEDURE CreatePapaDog(
 	@Name varchar(15),
 	@BirthDate DateTime2,
-	@Breed varchar(15)
+	@Breed varchar(15),
+	@Id int out
 )
 AS
 BEGIN
 	INSERT INTO PapaDog(Name,BirthDate,Breed)
 		VALUES(@Name,@BirthDate,@Breed)
+		SET @Id = SCOPE_IDENTITY();
 END 
 GO
 
@@ -196,12 +198,14 @@ CREATE PROCEDURE CreateLitter(
 	@MamaDogId int,
 	@PapaDogId int,
 	@BirthDate DateTime2,
-	@PuppyCount tinyint
+	@PuppyCount tinyint,
+	@Id int out
 )
 AS
 BEGIN
 	INSERT INTO Litter(MamaDogId,PapaDogId,BirthDate,PuppyCount)
 		VALUES(@MamaDogId,@PapaDogId,@BirthDate,@PuppyCount)
+		SET @Id = SCOPE_IDENTITY();
 END 
 GO
 
@@ -254,6 +258,54 @@ GO
 
 
 IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+		  WHERE ROUTINE_NAME = 'GetLittersByMamaId')
+			DROP PROCEDURE GetLittersByMamaId
+GO
+CREATE PROCEDURE GetLittersByMamaId
+	@MamaDogId int
+AS
+BEGIN
+	SELECT 
+		L.LitterId LitterId,
+		L.MamaDogId MamaDogId,
+		MamaDog.Name MamaDogName,
+		L.PapaDogId PapaDogId,
+		PapaDog.Name PapaDogName,
+		L.BirthDate BirthDate,
+		L.PuppyCount PuppyCount
+	FROM Litter L
+	INNER JOIN MamaDog ON L.MamaDogId = MamaDog.MamaDogId
+	INNER JOIN PapaDog ON L.PapaDogId = PapaDog.PapaDogId
+	WHERE L.MamaDogId = @MamaDogId
+END
+GO
+
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+		  WHERE ROUTINE_NAME = 'GetLittersByPapaId')
+			DROP PROCEDURE GetLittersByPapaId
+GO
+CREATE PROCEDURE GetLittersByPapaId
+	@PapaDogId int
+AS
+BEGIN
+	SELECT 
+		L.LitterId LitterId,
+		L.MamaDogId MamaDogId,
+		MamaDog.Name MamaDogName,
+		L.PapaDogId PapaDogId,
+		PapaDog.Name PapaDogName,
+		L.BirthDate BirthDate,
+		L.PuppyCount PuppyCount
+	FROM Litter L
+	INNER JOIN MamaDog ON L.MamaDogId = MamaDog.MamaDogId
+	INNER JOIN PapaDog ON L.PapaDogId = PapaDog.PapaDogId
+	WHERE L.PapaDogId = @PapaDogId
+END
+GO
+
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
 			WHERE ROUTINE_NAME = 'UpdateLitter')
 				DROP PROCEDURE UpdateLitter
 GO
@@ -294,11 +346,13 @@ GO
 CREATE PROCEDURE CreateMamaDogNote
 	@Note varchar(255),
 	@NoteTitle varchar(25),
-	@MamaDogiD int
+	@MamaDogiD int,
+	@Id int out
 AS
 BEGIN
 	INSERT INTO MamaDogNote(Note,NoteTitle,MamaDogId)
 		VALUES(@Note,@NoteTitle,@MamaDogId)
+		SET @Id = SCOPE_IDENTITY();
 END
 GO
 
@@ -340,6 +394,25 @@ BEGIN
 END
 GO
 
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+			WHERE ROUTINE_NAME = 'GetMamaDogNotesByMamaId')
+				DROP PROCEDURE GetMamaDogNotesByMamaId
+GO
+CREATE PROCEDURE GetMamaDogNotesByMamaId
+	@MamaDogId int
+AS
+BEGIN
+	SELECT 
+		MamaDogNote.MamaDogNoteId MamaDogNoteId,
+		MamaDogNote.MamaDogId MamaDogId,
+		MamaDogNote.Note Note,
+		MamaDogNote.NoteTitle NoteTitle,
+		MamaDogNote.DateCreated DateCreated
+	FROM MamaDogNote
+	WHERE MamaDogNote.MamaDogId = @MamaDogId
+END
+GO
 
 IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
 			WHERE ROUTINE_NAME = 'UpdateMamaDogNote')

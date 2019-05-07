@@ -10,9 +10,9 @@ using System.Web;
 
 namespace DuckTracker.Repositories.ADO
 {
-    public class MamaRepositoryADO : IMamaRepository
+    public class PapaRepositoryADO : IPapaRepository
     {
-        public int Create(MamaDog mama)
+        public int Create(PapaDog papa)
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -21,10 +21,10 @@ namespace DuckTracker.Repositories.ADO
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "CreateMamaDog";
-                cmd.Parameters.AddWithValue("@Name", mama.Name);
-                cmd.Parameters.AddWithValue("@BirthDate", mama.BirthDate);
-                cmd.Parameters.AddWithValue("@Breed", mama.Breed);
+                cmd.CommandText = "CreatePapaDog";
+                cmd.Parameters.AddWithValue("@Name", papa.Name);
+                cmd.Parameters.AddWithValue("@BirthDate", papa.BirthDate);
+                cmd.Parameters.AddWithValue("@Breed", papa.Breed);
 
                 cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
 
@@ -34,7 +34,7 @@ namespace DuckTracker.Repositories.ADO
             }
         }
 
-        public MamaDogQuery GetById(int id)
+        public PapaDogQuery GetById(int id)
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -43,17 +43,17 @@ namespace DuckTracker.Repositories.ADO
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "GetMamaDogById";
-                cmd.Parameters.AddWithValue("@MamaDogId", id);
+                cmd.CommandText = "GetPapaDogById";
+                cmd.Parameters.AddWithValue("@PapaDogId", id);
 
                 conn.Open();
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        MamaDogQuery current = new MamaDogQuery();
+                        PapaDogQuery current = new PapaDogQuery();
 
-                        current.MamaDogId = (int)dr["MamaDogId"];
+                        current.PapaDogId = (int)dr["PapaDogId"];
                         current.Name = dr["Name"].ToString();
                         current.Breed = dr["Breed"].ToString();
                         current.PuppyCount = (int)dr["PuppyCount"];
@@ -66,39 +66,39 @@ namespace DuckTracker.Repositories.ADO
             return null;
         }
 
-        public IEnumerable<MamaDogQuery> GetAll()
+        public IEnumerable<PapaDogQuery> GetAll()
         {
             using (SqlConnection conn = new SqlConnection())
             {
-                List<MamaDogQuery> mamas = new List<MamaDogQuery>();
+                List<PapaDogQuery> papas = new List<PapaDogQuery>();
                 conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "GetAllMamaDogs";
+                cmd.CommandText = "GetAllPapaDogs";
 
                 conn.Open();
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        MamaDogQuery current = new MamaDogQuery();
+                        PapaDogQuery current = new PapaDogQuery();
 
-                        current.MamaDogId = (int)dr["MamaDogId"];
+                        current.PapaDogId = (int)dr["PapaDogId"];
                         current.Name = dr["Name"].ToString();
                         current.Breed = dr["Breed"].ToString();
                         current.PuppyCount = (int)dr["PuppyCount"];
                         current.LitterCount = (int)dr["LitterCount"];
 
-                        mamas.Add(current);
+                        papas.Add(current);
                     }
                 }
-                return mamas;
+                return papas;
             }
         }
 
-        public int Update (MamaDog mama)
+        public int Update(PapaDog papa)
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -107,16 +107,16 @@ namespace DuckTracker.Repositories.ADO
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "UpdateMamaDog";
-                cmd.Parameters.AddWithValue("@Id", mama.MamaDogId);
-                cmd.Parameters.AddWithValue("@Name", mama.Name);
-                cmd.Parameters.AddWithValue("@BirthDate", mama.BirthDate);
-                cmd.Parameters.AddWithValue("@Breed", mama.Breed);
+                cmd.CommandText = "UpdatePapaDog";
+                cmd.Parameters.AddWithValue("@Id", papa.PapaDogId);
+                cmd.Parameters.AddWithValue("@Name", papa.Name);
+                cmd.Parameters.AddWithValue("@BirthDate", papa.BirthDate);
+                cmd.Parameters.AddWithValue("@Breed", papa.Breed);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
-            return mama.MamaDogId;
+            return papa.PapaDogId;
         }
 
         public void Delete(int id)
@@ -128,8 +128,8 @@ namespace DuckTracker.Repositories.ADO
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "DeleteMamaDog";
-                cmd.Parameters.AddWithValue("@MamaDogId", id);
+                cmd.CommandText = "DeletePapaDog";
+                cmd.Parameters.AddWithValue("@PapaDogId", id);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();

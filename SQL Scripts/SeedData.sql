@@ -28,11 +28,11 @@ SET IDENTITY_INSERT PapaDog OFF
 SET IDENTITY_INSERT Litter ON
 
 INSERT INTO Litter(LitterId, BirthDate, MamaDogId, PapaDogId, PuppyCount)
-	VALUES (1, '2016-8-9', 1, 1, 7),
-	       (2, '2016-8-9', 1, 2, 5),
-		   (3, '2016-8-9', 3, 3, 9),
-		   (4, '2016-8-9', 2, 1, 3),
-		   (5, '2016-8-9', 2, 2, 5)
+	VALUES (1, '2016-11-2', 1, 1, 7),
+	       (2, '2011-5-7', 1, 2, 5),
+		   (3, '2015-10-5', 3, 3, 9),
+		   (4, '2012-7-9', 2, 1, 3),
+		   (5, '2019-8-4', 2, 2, 5)
 
 SET IDENTITY_INSERT Litter OFF
 

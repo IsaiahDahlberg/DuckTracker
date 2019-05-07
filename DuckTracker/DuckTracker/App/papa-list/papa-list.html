@@ -1,4 +1,44 @@
 ﻿<div ng-controller="papaListController">
-    <h4>Papa List</h4>
-    <div>{{list}}</div>
+    <div class="container">
+        <h4><b>Papa List</b></h4>
+        <table class="table table-striped">
+            <thead>
+                <tr class="thead-dark">
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Breed
+                    </th>
+                    <th>
+                        Puppy Count
+                    </th>
+                    <th>
+                        Litter Count
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+
+            <tr ng-repeat="p in papas">
+                <td>
+                    {{p.Name}}
+                </td>
+                <td>
+                    {{p.Breed}}
+                </td>
+                <td>
+                    {{p.PuppyCount}}
+                </td>
+                <td>
+                    {{p.LitterCount}}
+                </td>
+                <td>
+                    <a ng-href="index.html#/Papa/{{p.PapaDogId}}"><button class="btn btn-info">Details</button></a>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>

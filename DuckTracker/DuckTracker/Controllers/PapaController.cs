@@ -1,5 +1,4 @@
-﻿using DuckTracker.Models.Query;
-using DuckTracker.Models.Tables;
+﻿using DuckTracker.Models.Tables;
 using DuckTracker.Repositories;
 using DuckTracker.Repositories.Interfaces;
 using Newtonsoft.Json;
@@ -12,13 +11,13 @@ using System.Web.Http;
 
 namespace DuckTracker.Controllers
 {
-    [RoutePrefix("api/mama")]
-    public class MamaController : ApiController
+    [RoutePrefix("api/papa")]
+    public class PapaController : ApiController
     {
-        private IMamaRepository _repo = RepositoryFactory.CreateMamaRepo();
+        private IPapaRepository _repo = RepositoryFactory.CreatePapaRepo();
 
         [Route("create")]
-        public IHttpActionResult Create (MamaDog mama)
+        public IHttpActionResult Create(PapaDog papa)
         {
             return null;
         }
