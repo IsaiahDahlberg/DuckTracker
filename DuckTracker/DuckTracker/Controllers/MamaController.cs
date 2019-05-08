@@ -3,6 +3,7 @@ using DuckTracker.Models.Tables;
 using DuckTracker.Repositories;
 using DuckTracker.Repositories.Interfaces;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,10 @@ namespace DuckTracker.Controllers
         private IMamaRepository _repo = RepositoryFactory.CreateMamaRepo();
 
         [Route("create")]
-        public IHttpActionResult Create (MamaDog mama)
+        public IHttpActionResult Create (JObject jPackage)
         {
-            return null;
+            _repo.Create(JsonConvert.DeserializeObject<MamaDog>(jPackage.ToString()));
+            return Ok();
         }
 
         [Route("GetAll")]
@@ -34,6 +36,14 @@ namespace DuckTracker.Controllers
         public IHttpActionResult GetById(int id)
         {
             return Ok(JsonConvert.SerializeObject(_repo.GetById(id)));
+        }
+
+        [Route("update")]
+        [HttpPost]
+        public IHttpActionResult Update(JObject jPackage)
+        {
+            _repo.Update(JsonConvert.DeserializeObject<MamaDog>(jPackage.ToString()));
+            return Ok();
         }
     }
 }

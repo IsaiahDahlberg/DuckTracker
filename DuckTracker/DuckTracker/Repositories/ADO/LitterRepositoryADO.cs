@@ -63,6 +63,8 @@ namespace DuckTracker.Repositories.ADO
                         current.BirthDate = (DateTime)dr["BirthDate"];
                         current.PuppyCount = (int)dr["PuppyCount"];
 
+                        current.BirthDate.ToShortDateString();
+
                         litters.Add(current);
                     }
                 }

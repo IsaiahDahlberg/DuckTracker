@@ -58,6 +58,9 @@ namespace DuckTracker.Repositories.ADO
                         current.Breed = dr["Breed"].ToString();
                         current.PuppyCount = (int)dr["PuppyCount"];
                         current.LitterCount = (int)dr["LitterCount"];
+                        current.BirthDate = (DateTime)dr["BirthDate"];
+
+                        current.BirthDate.ToShortDateString();
 
                         return current;
                     }
@@ -90,6 +93,9 @@ namespace DuckTracker.Repositories.ADO
                         current.Breed = dr["Breed"].ToString();
                         current.PuppyCount = (int)dr["PuppyCount"];
                         current.LitterCount = (int)dr["LitterCount"];
+                        current.BirthDate = (DateTime)dr["BirthDate"];
+
+                        current.BirthDate.ToShortDateString();
 
                         mamas.Add(current);
                     }
@@ -108,7 +114,7 @@ namespace DuckTracker.Repositories.ADO
                 cmd.Connection = conn;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "UpdateMamaDog";
-                cmd.Parameters.AddWithValue("@Id", mama.MamaDogId);
+                cmd.Parameters.AddWithValue("@MamaDogId", mama.MamaDogId);
                 cmd.Parameters.AddWithValue("@Name", mama.Name);
                 cmd.Parameters.AddWithValue("@BirthDate", mama.BirthDate);
                 cmd.Parameters.AddWithValue("@Breed", mama.Breed);

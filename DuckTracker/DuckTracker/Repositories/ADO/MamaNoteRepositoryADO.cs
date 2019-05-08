@@ -25,11 +25,12 @@ namespace DuckTracker.Repositories.ADO
                 cmd.Parameters.AddWithValue("@NoteTitle", note.NoteTitle);
                 cmd.Parameters.AddWithValue("@MamaDogId", note.MamaDogId);
 
+                cmd.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int));           
                 cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
-
+           
                 conn.Open();
-                cmd.ExecuteNonQuery();
-                return (int)cmd.Parameters["@Id"].Value;
+                cmd.ExecuteScalar();
+                return System.Convert.ToInt32(cmd.Parameters["@Id"].Value);
             }
         }
 

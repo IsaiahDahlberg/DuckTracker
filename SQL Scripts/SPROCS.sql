@@ -32,7 +32,7 @@ BEGIN
 	    m.MamaDogId MamaDogId,
 		m.Name [Name],
 		m.Breed Breed,
-		m.MamaDogId MamaDogId,
+		m.BirthDate BirthDate,
 	    (Select SUM(Litter.PuppyCount) PuppyCount FROM Litter INNER JOIN MamaDog ON Litter.MamaDogId = MamaDog.MamaDogId  WHERE Litter.MamaDogId = m.MamaDogId) PuppyCount,
 		(Select Count(*) LitterCount FROM Litter INNER JOIN MamaDog ON Litter.MamaDogId = MamaDog.MamaDogId  WHERE Litter.MamaDogId = m.MamaDogId) LitterCount
 	FROM MamaDog m
@@ -53,6 +53,7 @@ BEGIN
 	    m.MamaDogId MamaDogId,
 		m.Name [Name],
 		m.Breed Breed,
+		m.BirthDate BirthDate,
 	    (Select SUM(Litter.PuppyCount) PuppyCount FROM Litter INNER JOIN MamaDog ON Litter.MamaDogId = MamaDog.MamaDogId  WHERE Litter.MamaDogId = m.MamaDogId) PuppyCount,
 		(Select Count(*) LitterCount FROM Litter INNER JOIN MamaDog ON Litter.MamaDogId = MamaDog.MamaDogId  WHERE Litter.MamaDogId = m.MamaDogId) LitterCount
 	FROM MamaDog m
@@ -347,11 +348,12 @@ CREATE PROCEDURE CreateMamaDogNote
 	@Note varchar(255),
 	@NoteTitle varchar(25),
 	@MamaDogiD int,
-	@Id int out
+	@Id int output
 AS
 BEGIN
+	
 	INSERT INTO MamaDogNote(Note,NoteTitle,MamaDogId)
-		VALUES(@Note,@NoteTitle,@MamaDogId)
+		VALUES(@Note,@NoteTitle,@MamaDogId)	
 		SET @Id = SCOPE_IDENTITY();
 END
 GO
