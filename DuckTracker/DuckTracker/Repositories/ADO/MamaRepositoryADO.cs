@@ -1,10 +1,12 @@
-﻿using DuckTracker.Models.Query;
+﻿using DuckTracker.Models.CreateModels;
+using DuckTracker.Models.Query;
 using DuckTracker.Models.Tables;
 using DuckTracker.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -12,7 +14,7 @@ namespace DuckTracker.Repositories.ADO
 {
     public class MamaRepositoryADO : IMamaRepository
     {
-        public int Create(MamaDog mama)
+        public int Create(CreateMamaDogModel mama)
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -26,11 +28,12 @@ namespace DuckTracker.Repositories.ADO
                 cmd.Parameters.AddWithValue("@BirthDate", mama.BirthDate);
                 cmd.Parameters.AddWithValue("@Breed", mama.Breed);
 
+                cmd.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int));
                 cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
-                return (int)cmd.Parameters["@Id"].Value;
+                return System.Convert.ToInt32(cmd.Parameters["@Id"].Value);
             }
         }
 
@@ -56,11 +59,9 @@ namespace DuckTracker.Repositories.ADO
                         current.MamaDogId = (int)dr["MamaDogId"];
                         current.Name = dr["Name"].ToString();
                         current.Breed = dr["Breed"].ToString();
-                        current.PuppyCount = (int)dr["PuppyCount"];
-                        current.LitterCount = (int)dr["LitterCount"];
+                        current.PuppyCount = string.IsNullOrEmpty(dr["PuppyCount"].ToString()) ? 0 : (int)dr["PuppyCount"];
+                        current.LitterCount = string.IsNullOrEmpty(dr["LitterCount"].ToString()) ? 0 : (int)dr["LitterCount"];
                         current.BirthDate = (DateTime)dr["BirthDate"];
-
-                        current.BirthDate.ToShortDateString();
 
                         return current;
                     }
@@ -91,8 +92,8 @@ namespace DuckTracker.Repositories.ADO
                         current.MamaDogId = (int)dr["MamaDogId"];
                         current.Name = dr["Name"].ToString();
                         current.Breed = dr["Breed"].ToString();
-                        current.PuppyCount = (int)dr["PuppyCount"];
-                        current.LitterCount = (int)dr["LitterCount"];
+                        current.PuppyCount = string.IsNullOrEmpty(dr["PuppyCount"].ToString()) ? 0: (int)dr["PuppyCount"];
+                        current.LitterCount = string.IsNullOrEmpty(dr["LitterCount"].ToString()) ? 0: (int)dr["LitterCount"];
                         current.BirthDate = (DateTime)dr["BirthDate"];
 
                         current.BirthDate.ToShortDateString();

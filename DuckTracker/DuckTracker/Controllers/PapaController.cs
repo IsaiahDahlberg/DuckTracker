@@ -1,7 +1,9 @@
-﻿using DuckTracker.Models.Tables;
+﻿using DuckTracker.Models.CreateModels;
+using DuckTracker.Models.Tables;
 using DuckTracker.Repositories;
 using DuckTracker.Repositories.Interfaces;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +19,17 @@ namespace DuckTracker.Controllers
         private IPapaRepository _repo = RepositoryFactory.CreatePapaRepo();
 
         [Route("create")]
-        public IHttpActionResult Create(PapaDog papa)
+        public IHttpActionResult Create(JObject jPackage)
         {
-            return null;
+            try
+            {
+                var id = _repo.Create(JsonConvert.DeserializeObject<CreatePapaDogModel>(jPackage.ToString()));
+                return Ok(id);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         [Route("GetAll")]
@@ -33,6 +43,21 @@ namespace DuckTracker.Controllers
         public IHttpActionResult GetById(int id)
         {
             return Ok(JsonConvert.SerializeObject(_repo.GetById(id)));
+        }
+
+        [Route("update")]
+        [HttpPost]
+        public IHttpActionResult Update(JObject jPackage)
+        {
+            _repo.Update(JsonConvert.DeserializeObject<PapaDog>(jPackage.ToString()));
+            return Ok();
+        }
+
+        [Route("delete/{id:int}")]
+        public IHttpActionResult Delete(int id)
+        {
+            _repo.Delete(id);
+            return Ok();
         }
     }
 }

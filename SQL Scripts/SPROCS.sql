@@ -10,7 +10,7 @@ CREATE PROCEDURE CreateMamaDog(
 	@Name varchar(15),
 	@BirthDate DateTime2,
 	@Breed varchar(15),
-	@Id int out
+	@Id int output
 )
 AS
 BEGIN
@@ -36,7 +36,7 @@ BEGIN
 	    (Select SUM(Litter.PuppyCount) PuppyCount FROM Litter INNER JOIN MamaDog ON Litter.MamaDogId = MamaDog.MamaDogId  WHERE Litter.MamaDogId = m.MamaDogId) PuppyCount,
 		(Select Count(*) LitterCount FROM Litter INNER JOIN MamaDog ON Litter.MamaDogId = MamaDog.MamaDogId  WHERE Litter.MamaDogId = m.MamaDogId) LitterCount
 	FROM MamaDog m
-	INNER JOIN Litter ON Litter.MamaDogId = m.MamaDogId
+	LEFT JOIN Litter ON Litter.MamaDogId = m.MamaDogId
 END 
 GO
 
@@ -57,7 +57,7 @@ BEGIN
 	    (Select SUM(Litter.PuppyCount) PuppyCount FROM Litter INNER JOIN MamaDog ON Litter.MamaDogId = MamaDog.MamaDogId  WHERE Litter.MamaDogId = m.MamaDogId) PuppyCount,
 		(Select Count(*) LitterCount FROM Litter INNER JOIN MamaDog ON Litter.MamaDogId = MamaDog.MamaDogId  WHERE Litter.MamaDogId = m.MamaDogId) LitterCount
 	FROM MamaDog m
-	INNER JOIN Litter ON Litter.MamaDogId = m.MamaDogId
+	LEFT JOIN Litter ON Litter.MamaDogId = m.MamaDogId
 	WHERE m.MamaDogId = @MamaDogId
 END 
 GO
@@ -89,6 +89,8 @@ CREATE PROCEDURE DeleteMamaDog
 	@MamaDogId int
 AS
 BEGIN
+	DELETE Litter
+	WHERE Litter.MamaDogId = @MamaDogId	
 	DELETE MamaDogNote 
 	WHERE MamaDogNote.MamaDogId = @MamaDogId
 	DELETE MamaDog
@@ -105,7 +107,7 @@ CREATE PROCEDURE CreatePapaDog(
 	@Name varchar(15),
 	@BirthDate DateTime2,
 	@Breed varchar(15),
-	@Id int out
+	@Id int output
 )
 AS
 BEGIN
@@ -128,10 +130,11 @@ BEGIN
 		p.Name [Name],
 		p.Breed Breed,
 		p.PapaDogId PapaDogId,
+		p.BirthDate BirthDate,
 	    (Select SUM(Litter.PuppyCount) PuppyCount FROM Litter INNER JOIN PapaDog ON Litter.PapaDogId = PapaDog.PapaDogId  WHERE Litter.PapaDogId = p.PapaDogId) PuppyCount,
 		(Select Count(*) LitterCount FROM Litter INNER JOIN PapaDog ON Litter.PapaDogId = PapaDog.PapaDogId  WHERE Litter.PapaDogId = p.PapaDogId) LitterCount
 	FROM PapaDog p
-	INNER JOIN Litter ON Litter.PapaDogId = p.PapaDogId
+	LEFT JOIN Litter ON Litter.PapaDogId = p.PapaDogId
 END 
 GO
 
@@ -149,10 +152,11 @@ BEGIN
 		p.Name [Name],
 		p.Breed Breed,
 		p.PapaDogId PapaDogId,
+		p.BirthDate BirthDate,
 	    (Select SUM(Litter.PuppyCount) PuppyCount FROM Litter INNER JOIN PapaDog ON Litter.PapaDogId = PapaDog.PapaDogId  WHERE Litter.PapaDogId = p.PapaDogId) PuppyCount,
 		(Select Count(*) LitterCount FROM Litter INNER JOIN PapaDog ON Litter.PapaDogId = PapaDog.PapaDogId  WHERE Litter.PapaDogId = p.PapaDogId) LitterCount
 	FROM PapaDog p
-	INNER JOIN Litter ON Litter.PapaDogId = p.PapaDogId
+	LEFT JOIN Litter ON Litter.PapaDogId = p.PapaDogId
 	WHERE p.PapaDogId = @PapaDogId
 END 
 GO
@@ -200,7 +204,7 @@ CREATE PROCEDURE CreateLitter(
 	@PapaDogId int,
 	@BirthDate DateTime2,
 	@PuppyCount tinyint,
-	@Id int out
+	@Id int output
 )
 AS
 BEGIN
@@ -456,11 +460,13 @@ GO
 CREATE PROCEDURE CreatePapaDogNote
 	@Note varchar(255),
 	@NoteTitle varchar(25),
-	@PapaDogiD int
+	@PapaDogId int,
+	@Id int output
 AS
 BEGIN
 	INSERT INTO PapaDogNote(Note,NoteTitle,PapaDogId)
 		VALUES(@Note,@NoteTitle,@PapaDogId)
+		SET @Id = SCOPE_IDENTITY();
 END
 GO
 
@@ -502,6 +508,24 @@ BEGIN
 END
 GO
 
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+			WHERE ROUTINE_NAME = 'GetPapaDogNotesByPapaId')
+				DROP PROCEDURE GetPapaDogNotesByPapaId
+GO
+CREATE PROCEDURE GetPapaDogNotesByPapaId
+	@PapaDogId int
+AS
+BEGIN
+	SELECT 
+		PapaDogNote.PapaDogNoteId PapaDogNoteId,
+		PapaDogNote.PapaDogId PapaDogId,
+		PapaDogNote.Note Note,
+		PapaDogNote.NoteTitle NoteTitle,
+		PapaDogNote.DateCreated DateCreated
+	FROM PapaDogNote
+	WHERE PapaDogNote.PapaDogId = @PapaDogId
+END
+GO
 
 IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
 			WHERE ROUTINE_NAME = 'UpdatePapaDogNote')
@@ -541,11 +565,13 @@ GO
 CREATE PROCEDURE CreateLitterNote
 	@Note varchar(255),
 	@NoteTitle varchar(25),
-	@LitteriD int
+	@LitteriD int,
+	@Id int output
 AS
 BEGIN
 	INSERT INTO LitterNote(Note,NoteTitle,LitterId)
 		VALUES(@Note,@NoteTitle,@LitterId)
+		SET @Id = SCOPE_IDENTITY();
 END
 GO
 
@@ -584,6 +610,25 @@ BEGIN
 		LitterNote.DateCreated DateCreated
 	FROM LitterNote
 	WHERE LitterNote.LitterNoteId = @LitterNoteId
+END
+GO
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+			WHERE ROUTINE_NAME = 'GetLitterNotesByLitterId')
+				DROP PROCEDURE GetLitterNotesByLitterId
+GO
+CREATE PROCEDURE GetLitterNotesByLitterId
+	@LitterId int
+AS
+BEGIN
+	SELECT 
+		LitterNote.LitterNoteId LitterNoteId,
+		LitterNote.LitterId LitterId,
+		LitterNote.Note Note,
+		LitterNote.NoteTitle NoteTitle,
+		LitterNote.DateCreated DateCreated
+	FROM LitterNote
+	WHERE LitterNote.LitterId = @LitterId
 END
 GO
 

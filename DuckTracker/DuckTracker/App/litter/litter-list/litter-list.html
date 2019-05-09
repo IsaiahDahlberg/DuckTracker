@@ -1,0 +1,52 @@
+﻿<div ng-controller="litterListController">
+
+    <div class="container">
+        <h4><b>Litters</b></h4>
+                  <table class="table table-striped">
+                <thead>
+                    <tr class="thead-dark">
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Mama
+                        </th>
+                        <th>
+                            Papa
+                        </th>
+                        <th>
+                            Puppy Count
+                        </th>
+                        <th>
+                            Birth Date
+                        </th>
+                        <th>
+                            <a class="btn btn-info" ng-href="index.html#/litter/add">Add Litter</a>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tr ng-repeat="l in litters">
+                    <td>
+                        {{l.LitterId}}
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-info" ng-href="index.html#/Mama/{{l.MamaDogId}}">{{l.MamaDogName}}</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-info" ng-href="index.html#/Papa/{{l.PapaDogId}}">{{l.PapaDogName}}</a>
+                    </td>
+                    <td>
+                        {{l.PuppyCount}}
+                    </td>
+                    <td>
+                        {{l.BirthDate}}
+                    </td>
+                    <td>
+                        <a class="btn btn-info" ng-href="index.html#/Litter/{{l.LitterId}}">Details</a>
+                    </td>
+                </tr>
+            </table>
+  
+    </div>
+</div>

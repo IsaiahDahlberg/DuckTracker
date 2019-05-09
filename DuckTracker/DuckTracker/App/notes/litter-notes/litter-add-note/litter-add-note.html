@@ -1,0 +1,18 @@
+﻿<div ng-controller="litterAddNoteController">
+    <div class="container">
+        {{litter}}
+        <h4><b>Add Note For litter {{litter.LitterId}}</b></h4>
+        <form>
+            <div class="form-group">
+                <label><b>Note Title</b></label>
+                <input type="text" maxlength="25" class="form-control col-md-3" ng-model="note.NoteTitle" placeholder="Title" required>
+            </div>
+            <div class="form-group">
+                <label><b>Note</b></label>
+                <textarea class="form-control col-md-7" style="height:109px" maxlength="255" rows="3" ng-model="note.Note" required></textarea>
+            </div>
+            <button type="submit" ng-click="submit(note)" class="btn btn-primary">Submit</button>
+            <button ng-click="back()" class="btn btn-danger">Back</button>
+        </form>
+    </div>
+</div>

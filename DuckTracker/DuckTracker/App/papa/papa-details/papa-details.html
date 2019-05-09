@@ -1,14 +1,14 @@
-﻿<div ng-controller="mamaDetailsController">
+﻿<div ng-controller="papaDetailsController">
     <div class="container">
-        <h4><b>Mama {{mama.Name}}</b></h4>
-        <a ng-href="index.html#/mama/update/{{mama.MamaDogId}}" class="btn btn-info float-right">Update</a>
+        <h4><b>Papa {{papa.Name}}</b></h4>
+        <a ng-href="index.html#/papa/update/{{papa.PapaDogId}}" class="btn btn-info float-right">Update</a>
         <div class="row">
             <div class="col-md-10 offset-1 rounded" style="background-color:lightgray; margin-bottom: 1%;">
                 <div class="row">
-                    <p class="col-md-3"><b>BirthDate: {{mama.BirthDate}}</b></p>
-                    <p class="col-md-3"><b>Breed: {{mama.Breed}}</b></p>
-                    <p class="col-md-3"><b>Total Puppies: {{mama.PuppyCount}}</b></p>
-                    <p class="col-md-3"><b>Total Litters: {{mama.LitterCount}}</b></p>
+                    <p class="col-md-3"><b>BirthDate: {{papa.BirthDate}}</b></p>
+                    <p class="col-md-3"><b>Breed: {{papa.Breed}}</b></p>
+                    <p class="col-md-3"><b>Total Puppies: {{papa.PuppyCount}}</b></p>
+                    <p class="col-md-3"><b>Total Litters: {{papa.LitterCount}}</b></p>
                 </div>
             </div>
         </div>
@@ -17,15 +17,15 @@
             <div class="col-md-6 rounded" style="background-color: #ececec">
                 <div>
                     <h5 class="float-left"><b>Notes</b></h5>
-                    <a class="float-right btn btn-info" style="margin-top: 2%" ng-href="index.html#/mama/note/add/{{mama.MamaDogId}}">Add Note</a>
+                    <a class="float-right btn btn-info" style="margin-top: 2%" ng-href="index.html#/papa/note/add/{{papa.PapaDogId}}">Add Note</a>
                 </div>
                 <div style="margin-top: 12%">
                     <div ng-repeat="n in notes" style="margin-top: 3%">
-                        <div class="border rounded" style="padding: 2%;">
+                        <div class="border rounded" style="padding: 2%; background-color: lightgray;">
                             <div class="row">
                                 <h6 class="col-md-9"><b>{{n.NoteTitle}}</b></h6>
-                                <a class="btn btn-sm btn-outline-info" style="margin-right: 7px;" ng-href="index.html#/mama/note/update/{{n.MamaDogNoteId}}">Update</a>
-                                <button class="btn btn-sm btn-outline-danger" ng-click="delete(n.MamaDogNoteId)">Delete</button>
+                                <a class="btn btn-sm btn-outline-info" style="margin-right: 7px;" ng-href="index.html#/papa/note/update/{{n.PapaDogNoteId}}">Update</a>
+                                <button class="btn btn-sm btn-outline-danger" ng-click="delete(n.PapaDogNoteId)">Delete</button>
                             </div>
                             <div class="row">
                                 <p class="offset-1">{{n.Note}}</p>
@@ -43,7 +43,7 @@
                                 Litter Id
                             </th>
                             <th>
-                                Papa Dog
+                                Mama Dog
                             </th>
                             <th>
                                 Birth Date
@@ -62,7 +62,7 @@
                             {{l.LitterId}}
                         </td>
                         <td>
-                            <a gg-href="index.html#/Papa/{{m.PapaDogId}}">{{l.PapaDogName}}</a>
+                            <a class="btn btn-outline-info" ng-href="index.html#/Mama/{{l.MamaDogId}}">{{l.MamaDogName}}</a>
                         </td>
                         <td>
                             {{l.BirthDate}}

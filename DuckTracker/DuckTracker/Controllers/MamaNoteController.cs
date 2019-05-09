@@ -17,20 +17,31 @@ namespace DuckTracker.Controllers
     {
         private IMamaNoteRepository _repo = RepositoryFactory.CreateMamaNoteRepo();
 
-        [Route("add")]
+        [Route("Create")]
         [HttpPost]
-        public IHttpActionResult Add(JObject jPackage)
-        {
-            
+        public IHttpActionResult Create(JObject jPackage)
+        {            
             _repo.Create(JsonConvert.DeserializeObject<MamaDogNote>(jPackage.ToString()));
             return Ok();
         }
 
+        [Route("get/{id:int}")]
+        public IHttpActionResult Get(int id)
+        {
+            return Ok(JsonConvert.SerializeObject(_repo.GetById(id)));
+        }
         [Route("GetByMamaId/{id:int}")]
         [HttpGet]
         public IHttpActionResult GetByMamaId(int id)
         {
             return Ok(JsonConvert.SerializeObject(_repo.GetByMamaDogId(id)));
+        }
+
+        [Route("Update")]
+        public IHttpActionResult Update(JObject jPackage)
+        {
+            _repo.Update(JsonConvert.DeserializeObject<MamaDogNote>(jPackage.ToString()));
+            return Ok();
         }
 
         [Route("delete/{id:int}")]

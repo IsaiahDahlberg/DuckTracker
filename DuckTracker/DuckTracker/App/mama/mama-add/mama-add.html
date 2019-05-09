@@ -1,21 +1,19 @@
-﻿<div ng-controller="mamaUpdateController">
-    {{mama}}<br/>
-    {{newInfo}}
+﻿<div ng-controller="mamaAddController">
+    {{mama}}<br />
     <div class="container">
-      
         <form class="col-md-10 offset-4">
-            <h4><b>Update {{Name}}</b></h4>
+            <h4><b>Add Mama</b></h4>
             <div class="form-group">
                 <label><b>Name</b></label>
-                <input type="text" maxlength="25" class="form-control col-md-3" ng-model="newInfo.Name" placeholder="Title" required>
+                <input type="text" maxlength="25" class="form-control col-md-3" ng-model="mama.Name" placeholder="Name" required>
             </div>
             <div class="form-group">
                 <label><b>Breed</b></label>
-                <input type="text" maxlength="25" class="form-control col-md-3" ng-model="newInfo.Breed" placeholder="Title" required>
+                <input type="text" maxlength="25" class="form-control col-md-3" ng-model="mama.Breed" placeholder="Breed" required>
             </div>
             <div class="form-group">
                 <label><b>Birth Date</b></label>
-                <input type="text" maxlength="25" class="form-control col-md-3" ng-model="newInfo.BirthDate" placeholder="Title" required>
+                <input type="datetime-local" class="form-control col-md-3" ng-model="mama.BirthDate" required>
             </div>
             <button type="submit" ng-click="submit()" class="btn btn-primary">Submit</button>
             <button ng-click="back()" class="btn btn-danger">Back</button>

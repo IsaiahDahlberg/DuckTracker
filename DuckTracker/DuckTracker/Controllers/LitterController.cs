@@ -15,10 +15,28 @@ namespace DuckTracker.Controllers
     {
         private ILitterRepository _repo = RepositoryFactory.CreateLitterRepo();
 
+        [Route("get")]
+        public IHttpActionResult GetAll()
+        {
+            return Ok(JsonConvert.SerializeObject(_repo.GetAll()));
+        }
+
+        [Route("get/{id:int}")]
+        public IHttpActionResult GetById(int id)
+        {
+            return Ok(JsonConvert.SerializeObject(_repo.GetById(id)));
+        }
+
         [Route("GetByMamaId/{id:int}")]
         public IHttpActionResult GetByMamaId(int id)
         {
             return Ok(JsonConvert.SerializeObject(_repo.GetByMamaId(id)));
+        }
+
+        [Route("GetByPapaId/{id:int}")]
+        public IHttpActionResult GetByPapaId(int id)
+        {
+            return Ok(JsonConvert.SerializeObject(_repo.GetByPapaId(id)));
         }
     }
 }

@@ -1,0 +1,72 @@
+﻿<div ng-controller="litterDetailsController">
+    <div class="container">
+        {{litter}}<br />
+        {{mama}}<br />
+        {{papa}}<br />
+        {{notes}}<br/>
+        <div class="row">
+            <div class="col-md-6 rounded" style="background-color: #ececec">
+                <div>
+                    <h5 class="float-left"><b>Notes</b></h5>
+                    <a class="float-right btn btn-info" style="margin-top: 2%" ng-href="index.html#/litter/note/add/{{litter.LitterId}}">Add Note</a>
+                </div>
+                <div style="margin-top: 12%">
+                    <div ng-repeat="n in notes" style="margin-top: 3%">
+                        <div class="border rounded" style="padding: 2%; background-color: lightgray;">
+                            <div class="row">
+                                <h6 class="col-md-9"><b>{{n.NoteTitle}}</b></h6>
+                                <a class="btn btn-sm btn-outline-info" style="margin-right: 7px;" ng-href="index.html#/litter/note/update/{{n.LitterNoteId}}">Update</a>
+                                <button class="btn btn-sm btn-outline-danger" ng-click="delete(n.LitterNoteId)">Delete</button>
+                            </div>
+                            <div class="row">
+                                <p class="offset-1">{{n.Note}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 rounded" style="background-color: whitesmoke">
+                <h5><b>Parents</b></h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="thead-dark">
+                            <th>
+                                Papa
+                            </th>
+                            <th>
+                                Breed
+                            </th>
+                            <th>
+                                |
+                            </th>
+                            <th>
+                                Mama
+                            </th>
+                            <th>
+                                Breed
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tr>
+                        <td>
+                            <a class="btn btn-info" ng-href="index.html#/Papa/{{papa.PapaDogId}}"> {{papa.Name}}</a>
+                        </td>
+                        <td>
+                            {{papa.Breed}}
+                        </td>
+                        <th>
+                            |
+                        </th>
+                        <td>
+                            <a class="btn btn-info" ng-href="index.html#/Mama/{{mama.MamaDogId}}">   {{mama.Name}}</a>
+                        </td>
+                        <td>
+                            {{mama.Breed}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

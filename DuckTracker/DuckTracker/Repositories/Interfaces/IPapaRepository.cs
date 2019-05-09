@@ -1,4 +1,5 @@
-﻿using DuckTracker.Models.Query;
+﻿using DuckTracker.Models.CreateModels;
+using DuckTracker.Models.Query;
 using DuckTracker.Models.Tables;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace DuckTracker.Repositories.Interfaces
 {
     public interface IPapaRepository
     {
-        int Create(PapaDog mama);
+        int Create(CreatePapaDogModel mama);
         PapaDogQuery GetById(int id);
         IEnumerable<PapaDogQuery> GetAll();
         int Update(PapaDog mama);

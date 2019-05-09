@@ -1,4 +1,5 @@
-﻿using DuckTracker.Models.Query;
+﻿using DuckTracker.Models.CreateModels;
+using DuckTracker.Models.Query;
 using DuckTracker.Models.Tables;
 using DuckTracker.Repositories;
 using DuckTracker.Repositories.Interfaces;
@@ -21,8 +22,15 @@ namespace DuckTracker.Controllers
         [Route("create")]
         public IHttpActionResult Create (JObject jPackage)
         {
-            _repo.Create(JsonConvert.DeserializeObject<MamaDog>(jPackage.ToString()));
-            return Ok();
+            try
+            {
+                var id = _repo.Create(JsonConvert.DeserializeObject<CreateMamaDogModel>(jPackage.ToString()));
+                return Ok(id);
+            }
+            catch
+            {
+                return NotFound();
+            }         
         }
 
         [Route("GetAll")]
@@ -43,6 +51,13 @@ namespace DuckTracker.Controllers
         public IHttpActionResult Update(JObject jPackage)
         {
             _repo.Update(JsonConvert.DeserializeObject<MamaDog>(jPackage.ToString()));
+            return Ok();
+        }
+
+        [Route("delete/{id:int}")]
+        public IHttpActionResult Delete(int id)
+        {
+            _repo.Delete(id);
             return Ok();
         }
     }

@@ -1,4 +1,5 @@
-﻿using DuckTracker.Models.Query;
+﻿using DuckTracker.Models.CreateModels;
+using DuckTracker.Models.Query;
 using DuckTracker.Models.Tables;
 using DuckTracker.Repositories.Interfaces;
 using System;
@@ -12,7 +13,7 @@ namespace DuckTracker.Repositories.ADO
 {
     public class LitterRepositoryADO : ILitterRepository
     {
-        public int Create (Litter litter)
+        public int Create (CreateLitterModel litter)
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -27,11 +28,12 @@ namespace DuckTracker.Repositories.ADO
                 cmd.Parameters.AddWithValue("@BirthDate", litter.BirthDate);
                 cmd.Parameters.AddWithValue("@PuppyCount", litter.PuppyCount);
 
+                cmd.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int));
                 cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
-                return (int)cmd.Parameters["@Id"].Value;
+                return System.Convert.ToInt32(cmd.Parameters["@Id"].Value);
             }
         }
 
@@ -61,7 +63,7 @@ namespace DuckTracker.Repositories.ADO
                         current.PapaDogId = (int)dr["PapaDogId"];
                         current.PapaDogName = dr["PapaDogName"].ToString();
                         current.BirthDate = (DateTime)dr["BirthDate"];
-                        current.PuppyCount = (int)dr["PuppyCount"];
+                        current.PuppyCount = (byte)dr["PuppyCount"];
 
                         current.BirthDate.ToShortDateString();
 
@@ -82,6 +84,7 @@ namespace DuckTracker.Repositories.ADO
                 cmd.Connection = conn;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "GetLitterById";
+                cmd.Parameters.AddWithValue("LitterId", id);
 
                 conn.Open();
                 using (SqlDataReader dr = cmd.ExecuteReader())
@@ -96,7 +99,7 @@ namespace DuckTracker.Repositories.ADO
                         current.PapaDogId = (int)dr["PapaDogId"];
                         current.PapaDogName = dr["PapaDogName"].ToString();
                         current.BirthDate = (DateTime)dr["BirthDate"];
-                        current.PuppyCount = (int)dr["PuppyCount"];
+                        current.PuppyCount = (byte)dr["PuppyCount"];
 
                         return current;
                     }
@@ -168,7 +171,7 @@ namespace DuckTracker.Repositories.ADO
                         current.PapaDogId = (int)dr["PapaDogId"];
                         current.PapaDogName = dr["PapaDogName"].ToString();
                         current.BirthDate = (DateTime)dr["BirthDate"];
-                        current.PuppyCount = (int)dr["PuppyCount"];
+                        current.PuppyCount = (byte)dr["PuppyCount"];
 
                         litters.Add(current);
                     }

@@ -12,5 +12,6 @@ namespace DuckTracker.Models.Query
         public string Breed { get; set; }
         public int PuppyCount { get; set; }
         public int LitterCount { get; set; }
+        public DateTime BirthDate { get; set; }
     }
 }

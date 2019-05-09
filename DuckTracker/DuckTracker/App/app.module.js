@@ -5,8 +5,20 @@ angular.module('ducktrackerApp', [
     'mamaListModule',
     'mamaDetailsModule',
     'mamaUpdateModule',
+    'mamaAddModule',
     'papaListModule',
+    'papaDetailsModule',
+    'papaUpdateModule',
+    'papaAddModule',
     'litterListModule',
+    'litterDetailsModule',
+    'litterUpdateModule',
+    'litterAddModule',
+
     'mamaAddNoteModule',
-    'mamaUpdateNoteModule'
+    'mamaUpdateNoteModule',
+    'papaAddNoteModule',
+    'papaUpdateNoteModule',
+    'litterAddNoteModule',
+    'litterUpdateNoteModule'
 ]);

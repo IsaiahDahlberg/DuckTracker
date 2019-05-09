@@ -1,4 +1,5 @@
-﻿using DuckTracker.Models.Query;
+﻿using DuckTracker.Models.CreateModels;
+using DuckTracker.Models.Query;
 using DuckTracker.Models.Tables;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace DuckTracker.Repositories.Interfaces
 {
     public interface ILitterRepository
     {
-        int Create(Litter litter);
+        int Create(CreateLitterModel litter);
         IEnumerable<LitterQuery> GetAll();
         LitterQuery GetById(int id);
         IEnumerable<LitterQuery> GetByMamaId(int mamaId);

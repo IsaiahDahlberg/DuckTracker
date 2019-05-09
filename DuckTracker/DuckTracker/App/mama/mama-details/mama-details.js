@@ -15,7 +15,7 @@ app.controller('mamaDetailsController', ['$scope', '$http', '$location', functio
         $http.delete('http://localhost:64286/api/note/mama/delete/' + id).then(() => {
             $http.get('http://localhost:64286/api/note/mama/getbymamaid/' + $location.path().substring(6)).then(function (response) {
                 $scope.notes = JSON.parse(response.data);
-            })
+            }).then($route.reload());
         });
     }
 }]);
