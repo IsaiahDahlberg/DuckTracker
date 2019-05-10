@@ -6,8 +6,7 @@ app.controller('papaUpdateNoteController', ['$scope', '$location', '$http', func
     });
 
     $scope.submit = function () {
-        $http.post('http://localhost:64286/api/note/papa/update', $scope.note).then(function (response) { }).then(
-            $location.path("/Papa/" + $scope.note.PapaDogId));
+        $http.post('http://localhost:64286/api/note/papa/update', $scope.note).then(function (response) { $location.path("/Papa/" + $scope.note.PapaDogId) });
     }
 
     $scope.back = function () {

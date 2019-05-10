@@ -128,5 +128,9 @@ angular.
                         return 'litter/litter-list/litter-list.html';
                     }
                 }
-            });
+            })
+            .when('/', {
+                    templateUrl: 'home/home-page.html'
+                }
+            );
     });

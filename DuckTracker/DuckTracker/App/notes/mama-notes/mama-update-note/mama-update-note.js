@@ -6,8 +6,7 @@ app.controller('mamaUpdateNoteController', ['$scope', '$location', '$http', func
     });
 
     $scope.submit = function () {
-        $http.post('http://localhost:64286/api/note/mama/update', $scope.note).then(function (response) { }).then(
-            $location.path("/Mama/" + $scope.note.MamaDogId));
+        $http.post('http://localhost:64286/api/note/mama/update', $scope.note).then(function (response) { $location.path("/Mama/" + $scope.note.MamaDogId) });
     }
 
     $scope.back = function () {

@@ -84,6 +84,8 @@
   <ItemGroup>
     <Content Include="App\app.config.js" />
     <Content Include="App\app.module.js" />
+    <Content Include="App\Home\home-page.html" />
+    <Content Include="App\Home\home-page.js" />
     <Content Include="App\Index.html" />
     <Content Include="App\litter\litter-add\litter-add.html" />
     <Content Include="App\litter\litter-add\litter-add.js" />
@@ -188,6 +190,7 @@
     <Compile Include="Controllers\LitterNoteController.cs" />
     <Compile Include="Controllers\MamaController.cs" />
     <Compile Include="Controllers\MamaNoteController.cs" />
+    <Compile Include="Controllers\NoteController.cs" />
     <Compile Include="Controllers\PapaController.cs" />
     <Compile Include="Controllers\PapaNoteController.cs" />
     <Compile Include="Global.asax.cs">
@@ -198,6 +201,7 @@
     <Compile Include="Models\CreateModels\CreatePapaDogModel.cs" />
     <Compile Include="Models\Query\LitterQuery.cs" />
     <Compile Include="Models\Query\MamaDogQuery.cs" />
+    <Compile Include="Models\Query\NoteQuery.cs" />
     <Compile Include="Models\Query\PapaDogQuery.cs" />
     <Compile Include="Models\Tables\Litter.cs" />
     <Compile Include="Models\Tables\LitterNote.cs" />
@@ -210,12 +214,14 @@
     <Compile Include="Repositories\ADO\LitterRepositoryADO.cs" />
     <Compile Include="Repositories\ADO\MamaNoteRepositoryADO.cs" />
     <Compile Include="Repositories\ADO\MamaRepositoryADO.cs" />
+    <Compile Include="Repositories\ADO\NoteRepositoryADO.cs" />
     <Compile Include="Repositories\ADO\PapaNoteRepository.cs" />
     <Compile Include="Repositories\ADO\PapaRepositoryADO.cs" />
     <Compile Include="Repositories\Interfaces\ILitterNoteRepository.cs" />
     <Compile Include="Repositories\Interfaces\ILitterRepository.cs" />
     <Compile Include="Repositories\Interfaces\IMamaNoteRepository.cs" />
     <Compile Include="Repositories\Interfaces\IMamaRepository.cs" />
+    <Compile Include="Repositories\Interfaces\INoteRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPapaNoteRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPapaRepository.cs" />
     <Compile Include="Repositories\RepositoryFactory.cs" />

@@ -85,7 +85,7 @@ CREATE TABLE Litter(
 
 CREATE TABLE LitterNote(
 	LitterNoteId int primary key identity(1,1) not null,
-	LitterId int foreign key references PapaDog(PapaDogId) not null,
+	LitterId int foreign key references Litter(LitterId) not null,
 	NoteTitle varchar(25) not null,
 	Note varchar(255) not null,
 	DateCreated DATETIME NOT NULL DEFAULT (GETDATE())

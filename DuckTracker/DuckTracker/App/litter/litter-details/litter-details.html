@@ -1,9 +1,16 @@
 ﻿<div ng-controller="litterDetailsController">
     <div class="container">
-        {{litter}}<br />
-        {{mama}}<br />
-        {{papa}}<br />
-        {{notes}}<br/>
+        <h4><b>Litter {{litter.LitterId}}</b></h4>
+        <a ng-href="index.html#/litter/update/{{litter.LitterId}}" class="btn btn-info float-right">Update</a>
+        <div class="row">
+            <div class="col-md-10 offset-1 rounded" style="background-color:lightgray; margin-bottom: 1%;">
+                <div class="row">
+                    <p class="col-md-4"><b>BirthDate: {{litter.BirthDate}}</b></p>
+                    <p class="col-md-4"><b>Breed: {{mama.Breed}}-{{papa.Breed}}</b></p>
+                    <p class="col-md-4"><b>Total Puppies: {{litter.PuppyCount}}</b></p>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6 rounded" style="background-color: #ececec">
                 <div>
@@ -14,12 +21,16 @@
                     <div ng-repeat="n in notes" style="margin-top: 3%">
                         <div class="border rounded" style="padding: 2%; background-color: lightgray;">
                             <div class="row">
-                                <h6 class="col-md-9"><b>{{n.NoteTitle}}</b></h6>
+                                <h6 class="col-md-9"><b>{{n.NoteTitle}}</b></h6>      
                                 <a class="btn btn-sm btn-outline-info" style="margin-right: 7px;" ng-href="index.html#/litter/note/update/{{n.LitterNoteId}}">Update</a>
                                 <button class="btn btn-sm btn-outline-danger" ng-click="delete(n.LitterNoteId)">Delete</button>
                             </div>
                             <div class="row">
                                 <p class="offset-1">{{n.Note}}</p>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="offset-8"><p>{{n.DateCreated}}</p></div>
                             </div>
                         </div>
                     </div>

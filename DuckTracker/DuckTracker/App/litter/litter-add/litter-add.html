@@ -1,5 +1,30 @@
 ﻿<div ng-controller="litterAddController">
+    {{litter}}<br/>
     <div class="container">
-        {{litters}}
+        <form class="col-md-10 offset-4">
+            <h4><b>Add Litter</b></h4>
+            <div class="form-group">
+                <label><b>Puppy Count</b></label>
+                <input type="number" maxlength="7" class="form-control col-md-3" ng-model="litter.PuppyCount" placeholder="Puppy Count" required>
+            </div>          
+            <div class="form-group">
+                <label><b>Birth Date</b></label>
+                <input type="datetime-local" class="form-control col-md-3" ng-model="litter.BirthDate" required>
+            </div>
+            <div class="form-group">
+                <label><b>Mama</b></label>
+                <select ng-model="litter.MamaDogId" class="form-control col-md-3" required>
+                    <option ng-repeat="m in mamas" value="{{m.MamaDogId}}">{{m.Name}}-{{m.Breed}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label><b>Papa</b></label>
+                <select ng-model="litter.PapaDogId" class="form-control col-md-3" required>
+                    <option ng-repeat="p in papas" value="{{p.PapaDogId}}">{{p.Name}}-{{p.Breed}}</option>
+                </select>
+            </div>
+            <button type="submit" ng-click="submit()" class="btn btn-primary">Submit</button>
+            <a ng-click="back()" class="btn btn-danger">Back</a>
+        </form>
     </div>
 </div>

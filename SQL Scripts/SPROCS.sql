@@ -324,6 +324,7 @@ AS
 BEGIN
 	UPDATE Litter
 	SET MamaDogId = @MamaDogId, PapaDogId = @PapaDogId, BirthDate = @BirthDate, PuppyCount = @PuppyCount
+	WHERE Litter.LitterId = @LitterId
 END
 GO
 
