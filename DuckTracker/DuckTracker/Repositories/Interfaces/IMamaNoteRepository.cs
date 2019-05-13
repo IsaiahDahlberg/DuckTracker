@@ -10,7 +10,7 @@ namespace DuckTracker.Repositories.Interfaces
     public interface IMamaNoteRepository
     {
         int Create(MamaDogNote note);
-        IEnumerable<MamaDogNote> GetAll();
+        IEnumerable<MamaDogNote> GetRecent();
         MamaDogNote GetById(int id);
         IEnumerable<MamaDogNote> GetByMamaDogId(int mamaId);
         int Update(MamaDogNote note);

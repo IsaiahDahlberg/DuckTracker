@@ -13,6 +13,7 @@ namespace DuckTracker.Repositories.Interfaces
     {
         int Create(CreateLitterModel litter);
         IEnumerable<LitterQuery> GetAll();
+        IEnumerable<LitterQuery> GetRecent();
         LitterQuery GetById(int id);
         IEnumerable<LitterQuery> GetByMamaId(int mamaId);
         IEnumerable<LitterQuery> GetByPapaId(int papaId);

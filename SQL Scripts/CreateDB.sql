@@ -38,6 +38,10 @@ IF EXISTS(SELECT * FROM sys.tables WHERE name='MamaDogNote')
 	DROP TABLE MamaDogNote
 GO
 
+IF EXISTS(SELECT * FROM sys.tables WHERE name='HeatPrediction')
+	DROP TABLE HeatPrediction
+GO
+
 IF EXISTS(SELECT * FROM sys.tables WHERE name='MamaDog')
 	DROP TABLE MamaDog
 GO
@@ -57,6 +61,12 @@ CREATE TABLE MamaDogNote(
 	NoteTitle varchar(25) not null,
 	Note varchar(255) not null,
 	DateCreated DATETIME NOT NULL DEFAULT (GETDATE())
+)
+
+CREATE TABLE HeatPrediction(
+	HeatPredictionId int primary key identity(1,1) not null,
+	MamaDogId int foreign key references MamaDog(MamaDogId) not null,
+	[Date] DateTime2 Not null
 )
 
 CREATE TABLE PapaDog(

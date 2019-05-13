@@ -2,6 +2,7 @@
 
 angular.module('ducktrackerApp', [
     'ngRoute',
+    'homePageModule',
     'mamaListModule',
     'mamaDetailsModule',
     'mamaUpdateModule',

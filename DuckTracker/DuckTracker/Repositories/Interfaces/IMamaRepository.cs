@@ -16,5 +16,8 @@ namespace DuckTracker.Repositories.Interfaces
         IEnumerable<MamaDogQuery> GetAll();
         int Update(MamaDog mama);
         void Delete(int id);
+        void CreateHeatPrediction(CreateHeatModel prediction);
+        HeatPrediction GetHeatPredictionByMamaDogId(int id);
+        IEnumerable<UpComingInHeatQuery> GetUpComingHeatPredictions();
     }
 }

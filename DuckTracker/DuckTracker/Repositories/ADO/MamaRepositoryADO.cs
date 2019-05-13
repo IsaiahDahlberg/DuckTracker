@@ -142,5 +142,84 @@ namespace DuckTracker.Repositories.ADO
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public void CreateHeatPrediction(CreateHeatModel prediction)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "CreateHeatPrediction";
+                cmd.Parameters.AddWithValue("@MamaDogId", prediction.MamaDogId);
+                cmd.Parameters.AddWithValue("@Date", prediction.Date);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public HeatPrediction GetHeatPredictionByMamaDogId(int id)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                List<MamaDogQuery> mamas = new List<MamaDogQuery>();
+                conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetHeatPredictionByMamaDogId";
+                cmd.Parameters.AddWithValue("@MamaDogId", id);
+
+                conn.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        HeatPrediction current = new HeatPrediction();
+
+                        current.MamaDogId = (int)dr["MamaDogId"];
+                        current.HeatPredictionId = (int)dr["HeatPredictionId"];
+                        current.Date = (DateTime)dr["Date"];
+
+                        return current;
+                    }
+                }
+                return null;
+            }
+        }
+
+        public IEnumerable<UpComingInHeatQuery> GetUpComingHeatPredictions()
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                List<UpComingInHeatQuery> list = new List<UpComingInHeatQuery>();
+                conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetUpComingHeatPredictions";
+
+                conn.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        UpComingInHeatQuery current = new UpComingInHeatQuery();
+
+                        current.MamaDogId = (int)dr["MamaDogId"];
+                        current.MamaName= dr["MamaName"].ToString();
+                        current.Date = (DateTime)dr["Date"];
+
+                        list.Add(current);
+                    }
+                }
+                return list;
+            }
+        }
     }
 }

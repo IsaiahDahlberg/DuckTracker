@@ -1,9 +1,8 @@
 ﻿var app = angular.module('papaDetailsModule', []);
 
-app.controller('papaDetailsController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+app.controller('papaDetailsController', ['$scope', '$route','$http', '$location', function ($scope, $route, $http, $location) {
     $http.get('http://localhost:64286/api/papa/get/' + $location.path().substring(6)).then(function (response) {
         $scope.papa = JSON.parse(response.data);
-        $scope.papa.BirthDate = $scope.papa.BirthDate.substring(0, 10);
     });
     $http.get('http://localhost:64286/api/litter/getbypapaid/' + $location.path().substring(6)).then(function (response) {
         $scope.litters = JSON.parse(response.data);

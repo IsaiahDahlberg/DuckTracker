@@ -17,6 +17,12 @@ namespace DuckTracker.Controllers
     {
         private IMamaNoteRepository _repo = RepositoryFactory.CreateMamaNoteRepo();
 
+        [Route("GetRecent")]
+        public IHttpActionResult GetRecent()
+        {
+            return Ok(JsonConvert.SerializeObject(_repo.GetRecent()));
+        }
+
         [Route("Create")]
         [HttpPost]
         public IHttpActionResult Create(JObject jPackage)

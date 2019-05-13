@@ -1,6 +1,143 @@
 ﻿<div ng-controller="homePageController">
     <div class="container">
-        {{notes}}
-        HOME PAGE
+        <div class="row rounded" style="background-color: lightblue;">
+            <h1 class="offset-4"><b>The Duck Tracker 900</b></h1>
+        </div>
+        <div class="row">
+            <div class="col-md-6 rounded" style="background-color: ghostwhite;">
+                <h5><b>Recent Litters</b></h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="thead-dark">
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Mama
+                            </th>
+                            <th>
+                                Papa
+                            </th>
+                            <th>
+                                Puppy Count
+                            </th>
+                            <th>
+                                Birth Date
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tr ng-repeat="l in litters">
+                        <td>
+                            {{l.LitterId}}
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-info" ng-href="index.html#/Mama/{{l.MamaDogId}}">{{l.MamaDogName}}</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-info" ng-href="index.html#/Papa/{{l.PapaDogId}}">{{l.PapaDogName}}</a>
+                        </td>
+                        <td>
+                            {{l.PuppyCount}}
+                        </td>
+                        <td>
+                            {{l.BirthDate.substring(0,10)}}
+                        </td>
+                        <td>
+                            <a class="btn btn-info" ng-href="index.html#/Litter/{{l.LitterId}}">Details</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6 rounded" style="background-color: ghostwhite;">
+                <h5><b>Heat Predictions</b></h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="thead-dark">
+                            <th>
+                                Mama
+                            </th>
+                            <th>
+                                Predicted Date
+                            </th>
+                            <th>
+                                
+                            </th>                           
+                        </tr>
+                    </thead>
+
+                    <tr ng-repeat="h in heats">
+                        <td>
+                            {{h.MamaName}}
+                        </td>
+                        <td>
+                            {{h.Date.substring(0,10)}}
+                        </td>
+                        <td>
+                            <a class="btn btn-info" ng-href="index.html#/Mama/{{h.MamaDogId}}">Details</a>
+                        </td>                       
+                </table>
+            </div>
+        </div>
+        <div class="row rounded">
+            <div class="col-md-4 rounded" style="background-color: #ececec;">
+                <h5><b>Recent Mama Notes</b></h5>
+                <div style="margin-top: 12%">
+                    <div ng-repeat="m in mamaNotes" style="margin-top: 3%">
+                        <div class="border rounded" style="padding: 2%; background-color: lightgray;">
+                            <div class="row">
+                                <h6 class="col-md-9"><b>{{m.NoteTitle}}</b></h6>
+                                <a class="btn btn-sm btn-outline-info" style="margin-right: 7px;" ng-href="index.html#/Mama/{{m.MamaDogId}}">Details</a>
+                            </div>
+                            <div class="row" style="padding-right: 3%;">
+                                <p class="offset-1">{{m.Note}}</p>
+                            </div>
+                            <div class="row">
+                                <div class="offset-9"><p>{{m.DateCreated.substring(0,10)}}</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 rounded" style="background-color: whitesmoke;">
+                <h5><b>Recent Litter Notes</b></h5>
+                <div style="margin-top: 12%">
+                    <div ng-repeat="l in litterNotes" style="margin-top: 3%">
+                        <div class="border rounded" style="padding: 2%; background-color: lightgray;">
+                            <div class="row">
+                                <h6 class="col-md-9"><b>{{l.NoteTitle}}</b></h6>
+                                <a class="btn btn-sm btn-outline-info" style="margin-right: 7px;" ng-href="index.html#/Litter/{{l.LitterId}}">Details</a>
+                            </div>
+                            <div class="row" style="padding-right: 3%;">
+                                <p class="offset-1">{{l.Note}}</p>
+                            </div>
+                            <div class="row">
+                                <div class="offset-9"><p>{{l.DateCreated.substring(0,10)}}</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 rounded" style="background-color: #ececec;">
+                <h5><b>Recent Papa Notes</b></h5>
+                <div style="margin-top: 12%">
+                    <div ng-repeat="p in papaNotes" style="margin-top: 3%">
+                        <div class="border rounded" style="padding: 2%; background-color: lightgray;">
+                            <div class="row">
+                                <h6 class="col-md-9"><b>{{p.NoteTitle}}</b></h6>
+                                <a class="btn btn-sm btn-outline-info" style="margin-right: 7px;" ng-href="index.html#/Papa/{{p.PapaDogId}}">Details</a>
+                            </div>
+                            <div class="row" style="padding-right: 3%;">
+                                <p class="offset-1">{{p.Note}}</p>
+                            </div>
+                            <div class="row">
+                                <div class="offset-9"><p>{{p.DateCreated.substring(0,10)}}</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

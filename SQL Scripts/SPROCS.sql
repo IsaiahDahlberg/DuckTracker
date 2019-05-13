@@ -93,6 +93,8 @@ BEGIN
 	WHERE Litter.MamaDogId = @MamaDogId	
 	DELETE MamaDogNote 
 	WHERE MamaDogNote.MamaDogId = @MamaDogId
+	DELETE HeatPrediction
+	WHERE HeatPrediction.MamaDogId = @MamaDogId
 	DELETE MamaDog
 	WHERE MamaDog.MamaDogId = @MamaDogId	
 END 
@@ -236,6 +238,29 @@ BEGIN
 END
 Go
 
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+		  WHERE ROUTINE_NAME = 'GetRecentLitters')
+			DROP PROCEDURE GetRecentLitters
+GO
+CREATE PROCEDURE GetRecentLitters
+AS
+BEGIN
+	SELECT top 5
+		L.LitterId LitterId,
+		L.MamaDogId MamaDogId,
+		MamaDog.Name MamaDogName,
+		L.PapaDogId PapaDogId,
+		PapaDog.Name PapaDogName,
+		L.BirthDate BirthDate,
+		L.PuppyCount PuppyCount
+	FROM Litter L
+	INNER JOIN MamaDog ON L.MamaDogId = MamaDog.MamaDogId
+	INNER JOIN PapaDog ON L.PapaDogId = PapaDog.PapaDogId
+	order by L.BirthDate Desc
+END
+Go
+
+
 
 
 IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
@@ -378,6 +403,25 @@ BEGIN
 		MamaDogNote.NoteTitle NoteTitle,
 		MamaDogNote.DateCreated DateCreated
 	FROM MamaDogNote
+	order by  MamaDogNote.DateCreated DESC
+END
+GO
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+			WHERE ROUTINE_NAME = 'GetRecentMamaDogNotes')
+				DROP PROCEDURE GetRecentMamaDogNotes
+GO
+CREATE PROCEDURE GetRecentMamaDogNotes
+AS
+BEGIN
+	SELECT top 5
+		MamaDogNote.MamaDogNoteId MamaDogNoteId,
+		MamaDogNote.MamaDogId MamaDogId,
+		MamaDogNote.Note Note,
+		MamaDogNote.NoteTitle NoteTitle,
+		MamaDogNote.DateCreated DateCreated
+	FROM MamaDogNote
+	order by  MamaDogNote.DateCreated DESC
 END
 GO
 
@@ -418,6 +462,7 @@ BEGIN
 		MamaDogNote.DateCreated DateCreated
 	FROM MamaDogNote
 	WHERE MamaDogNote.MamaDogId = @MamaDogId
+	order by  MamaDogNote.DateCreated DESC
 END
 GO
 
@@ -486,6 +531,26 @@ BEGIN
 		PapaDogNote.NoteTitle NoteTitle,
 		PapaDogNote.DateCreated DateCreated
 	FROM PapaDogNote
+	order by  PapaDogNote.DateCreated DESC
+END
+GO
+
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+			WHERE ROUTINE_NAME = 'GetRecentPapaDogNotes')
+				DROP PROCEDURE GetRecentPapaDogNotes
+GO
+CREATE PROCEDURE GetRecentPapaDogNotes
+AS
+BEGIN
+	SELECT top 5
+		PapaDogNote.PapaDogNoteId PapaDogNoteId,
+		PapaDogNote.PapaDogId PapaDogId,
+		PapaDogNote.Note Note,
+		PapaDogNote.NoteTitle NoteTitle,
+		PapaDogNote.DateCreated DateCreated
+	FROM PapaDogNote
+	order by  PapaDogNote.DateCreated DESC
 END
 GO
 
@@ -525,6 +590,7 @@ BEGIN
 		PapaDogNote.DateCreated DateCreated
 	FROM PapaDogNote
 	WHERE PapaDogNote.PapaDogId = @PapaDogId
+	order by  PapaDogNote.DateCreated DESC
 END
 GO
 
@@ -591,8 +657,28 @@ BEGIN
 		LitterNote.NoteTitle NoteTitle,
 		LitterNote.DateCreated DateCreated
 	FROM LitterNote
+	order by  LitterNote.DateCreated DESC
 END
 GO
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+			WHERE ROUTINE_NAME = 'GetRecentLitterNotes')
+				DROP PROCEDURE GetRecentLitterNotes
+GO
+CREATE PROCEDURE GetRecentLitterNotes
+AS
+BEGIN
+	SELECT top 5
+		LitterNote.LitterNoteId LitterNoteId,
+		LitterNote.LitterId LitterId,
+		LitterNote.Note Note,
+		LitterNote.NoteTitle NoteTitle,
+		LitterNote.DateCreated DateCreated
+	FROM LitterNote
+	order by  LitterNote.DateCreated DESC
+END
+GO
+
 
 
 IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
@@ -630,6 +716,7 @@ BEGIN
 		LitterNote.DateCreated DateCreated
 	FROM LitterNote
 	WHERE LitterNote.LitterId = @LitterId
+	order by  LitterNote.DateCreated DESC
 END
 GO
 
@@ -663,3 +750,57 @@ BEGIN
 	WHERE LitterNote.LitterNoteId = @LitterNoteId
 END
 GO
+
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+			WHERE ROUTINE_NAME = 'CreateHeatPrediction')
+				DROP PROCEDURE CreateHeatPrediction
+GO
+CREATE PROCEDURE CreateHeatPrediction
+	@MamaDogId int,
+	@Date DateTime2 output
+AS
+BEGIN
+	DELETE HeatPrediction Where HeatPrediction.MamaDogId = @MamaDogId
+	INSERT INTO HeatPrediction(MamaDogId ,[Date])
+		VALUES(@MamaDogId,@Date)
+END
+GO
+
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+			WHERE ROUTINE_NAME = 'GetUpComingHeatPredictions')
+				DROP PROCEDURE GetUpComingHeatPredictions
+GO
+CREATE PROCEDURE GetUpComingHeatPredictions
+AS
+BEGIN
+	Select 
+		h.MamaDogId MamaDogId,
+		h.Date Date,
+		m.Name MamaName
+
+	FROM HeatPrediction H
+	INNER JOIN MamaDog M  ON M.MamaDogId = H.MamaDogId
+	ORDER BY h.Date ASC
+END
+GO
+
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES
+			WHERE ROUTINE_NAME = 'GetHeatPredictionByMamaDogId')
+				DROP PROCEDURE GetHeatPredictionByMamaDogId
+GO
+CREATE PROCEDURE GetHeatPredictionByMamaDogId
+	@MamaDogId int
+AS
+BEGIN
+	Select 
+		h.MamaDogId MamaDogId,
+		h.Date Date,
+		h.HeatPredictionId HeatPredictionId
+	FROM HeatPrediction H
+	WHERE H.MamaDogId = @MamaDogId
+END
+GO
+
+

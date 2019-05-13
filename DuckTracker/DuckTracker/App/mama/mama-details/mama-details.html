@@ -1,17 +1,37 @@
 ﻿<div ng-controller="mamaDetailsController">
     <div class="container">
+        {{newHeat}}
         <h4><b>Mama {{mama.Name}}</b></h4>
         <a ng-href="index.html#/mama/update/{{mama.MamaDogId}}" class="btn btn-info float-right">Update</a>
         <div class="row">
-            <div class="col-md-10 offset-1 rounded" style="background-color:lightgray; margin-bottom: 1%;">
+            <div class="col-md-6 offset-1 rounded" style="background-color: lightgray; margin-bottom: 1%;">
                 <div class="row">
-                    <p class="col-md-3"><b>BirthDate: {{mama.BirthDate}}</b></p>
-                    <p class="col-md-3"><b>Breed: {{mama.Breed}}</b></p>
-                    <p class="col-md-3"><b>Total Puppies: {{mama.PuppyCount}}</b></p>
-                    <p class="col-md-3"><b>Total Litters: {{mama.LitterCount}}</b></p>
+                    <p class="col-md-5 rounded" style="background-color: #ececec; padding: 1%; margin: 1%;"><b>BirthDate: {{mama.BirthDate.substring(0,10)}}</b></p>
+                    <p class="col-md-5 rounded" style="background-color: #ececec; padding: 1%; margin: 1%;"><b>Breed: {{mama.Breed}}</b></p>
+
+                </div>
+                <div class="row">
+                    <p class="col-md-5 rounded" style="background-color: #ececec; padding: 1%; margin: 1%;"><b>Total Puppies: {{mama.PuppyCount}}</b></p>
+                    <p class="col-md-5 rounded" style="background-color: #ececec; padding: 1%; margin: 1%;"><b>Total Litters: {{mama.LitterCount}}</b></p>
                 </div>
             </div>
+            <div class="col-md-4 rounded" style="background-color: lightgray; margin-bottom: 1%;">
+                <div class="row" style="margin: 1%;">
+                    <p class="rounded" style="background-color: #ececec; padding: 1%; margin: 1%;"><b>Predicted Heat Date : {{heat.Date.substring(0,10)}}</b></p>
+                </div>
+
+                <div class="row" style="margin: 1%;">
+                    <div class="form-group col-md-6">
+                        <input type="date" class="form-control col-md-12" ng-model="newHeat.Date" required>
+                    </div>
+                    <div class="col-md-4">
+                        <a ng-click="setHeat()" class="btn btn-info">Change</a>
+                    </div>
+                </div>
+
+            </div>
         </div>
+
 
         <div class="row">
             <div class="col-md-6 rounded" style="background-color: #ececec">
@@ -27,11 +47,11 @@
                                 <a class="btn btn-sm btn-outline-info" style="margin-right: 7px;" ng-href="index.html#/mama/note/update/{{n.MamaDogNoteId}}">Update</a>
                                 <button class="btn btn-sm btn-outline-danger" ng-click="delete(n.MamaDogNoteId)">Delete</button>
                             </div>
-                            <div class="row">
+                            <div class="row" style="padding-right: 3%;">
                                 <p class="offset-1">{{n.Note}}</p>
                             </div>
                             <div class="row">
-                                <div class="offset-8"><p>{{n.DateCreated}}</p></div>
+                                <div class="offset-9"><p>{{n.DateCreated.substring(0,10)}}</p></div>
                             </div>
                         </div>
                     </div>
@@ -68,7 +88,7 @@
                             <a class="btn btn-outline-info" ng-href="index.html#/Papa/{{l.PapaDogId}}">{{l.PapaDogName}}</a>
                         </td>
                         <td>
-                            {{l.BirthDate}}
+                            {{l.BirthDate.substring(0,10)}}
                         </td>
                         <td>
                             {{l.PuppyCount}}

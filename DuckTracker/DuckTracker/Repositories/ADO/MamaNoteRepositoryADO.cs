@@ -34,7 +34,7 @@ namespace DuckTracker.Repositories.ADO
             }
         }
 
-        public IEnumerable<MamaDogNote> GetAll()
+        public IEnumerable<MamaDogNote> GetRecent()
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -44,7 +44,7 @@ namespace DuckTracker.Repositories.ADO
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "GetAllMamaDogNotes"; 
+                cmd.CommandText = "GetRecentMamaDogNotes"; 
 
                 conn.Open();
                 using (SqlDataReader dr = cmd.ExecuteReader())

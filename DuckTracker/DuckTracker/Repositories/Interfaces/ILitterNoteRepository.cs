@@ -10,7 +10,7 @@ namespace DuckTracker.Repositories.Interfaces
     public interface ILitterNoteRepository
     {
         int Create(LitterNote note);
-        IEnumerable<LitterNote> GetAll();
+        IEnumerable<LitterNote> GetRecent();
         LitterNote GetById(int id);
         IEnumerable<LitterNote> GetByLitterId(int litterId);
         int Update(LitterNote note);

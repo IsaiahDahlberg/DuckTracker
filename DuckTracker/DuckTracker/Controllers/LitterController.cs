@@ -38,6 +38,11 @@ namespace DuckTracker.Controllers
             return Ok(JsonConvert.SerializeObject(_repo.GetAll()));
         }
 
+        [Route("GetRecent")]
+        public IHttpActionResult GetRecent()
+        {
+            return Ok(JsonConvert.SerializeObject(_repo.GetRecent()));
+        }
         [Route("get/{id:int}")]
         public IHttpActionResult GetById(int id)
         {

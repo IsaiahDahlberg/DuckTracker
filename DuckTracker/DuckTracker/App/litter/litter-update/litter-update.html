@@ -1,27 +1,26 @@
 ﻿<div ng-controller="litterUpdateController">
-        {{litter}}<br />
-                  <div class="container">
-                      <form class="col-md-10 offset-4">
-                          <h4><b>Update Litter</b></h4>
-                          <div class="form-group">
-                              <label><b>Puppy Count</b></label>
-                              <input type="number" maxlength="7" class="form-control col-md-3" ng-model="litter.PuppyCount" placeholder="Puppy Count" required>
-                          </div>
-                          <div class="form-group">
-                              <label><b>Birth Date</b></label>
-                              <input type="datetime-local" class="form-control col-md-3" ng-model="litter.BirthDate" required>
-                          </div>
-                          <div class="form-group">
-                              <label><b>Mama</b></label>
-                              <select ng-model="litter.MamaDogId" ng-options="m.MamaDogId as (m.Name + ' - ' + m.Breed) for m in mamas" class="form-control col-md-3" required></select>
-                          </div>
-                          <div class="form-group">
-                              <label><b>Papa</b></label>
-                              <select ng-model="litter.PapaDogId" ng-options="p.PapaDogId as (p.Name + ' - ' + p.Breed) for p in papas" class="form-control col-md-3" required></select>
-                          </div>
-                          <button type="submit" ng-click="submit()" class="btn btn-primary">Submit</button>
-                          <button ng-click="back()" class="btn btn-danger">Back</button>
-                      </form>
-                      <button ng-click="delete()" class=" col-md-3 offset-4 btn btn-outline-danger" style="margin-top: 5%;">Delete Litter</button>
-                  </div>
+    <div class="container">
+        <form class="col-md-10 offset-4">
+            <h4><b>Update Litter</b></h4>
+            <div class="form-group">
+                <label><b>Puppy Count</b></label>
+                <input type="number" maxlength="7" class="form-control col-md-3" ng-model="litter.PuppyCount" placeholder="Puppy Count" required>
+            </div>
+            <div class="form-group">
+                <label><b>Birth Date</b></label>
+                <input type="date" class="form-control col-md-3" ng-model="litter.BirthDate" required>
+            </div>
+            <div class="form-group">
+                <label><b>Mama</b></label>
+                <select ng-model="litter.MamaDogId" ng-options="m.MamaDogId as (m.Name + ' - ' + m.Breed) for m in mamas" class="form-control col-md-3" required></select>
+            </div>
+            <div class="form-group">
+                <label><b>Papa</b></label>
+                <select ng-model="litter.PapaDogId" ng-options="p.PapaDogId as (p.Name + ' - ' + p.Breed) for p in papas" class="form-control col-md-3" required></select>
+            </div>
+            <button type="submit" ng-click="submit()" class="btn btn-primary">Submit</button>
+            <button ng-click="back()" class="btn btn-danger">Back</button>
+        </form>
+        <button ng-click="delete()" class=" col-md-3 offset-4 btn btn-outline-danger" style="margin-top: 5%;">Delete Litter</button>
     </div>
+</div>

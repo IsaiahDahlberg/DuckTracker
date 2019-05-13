@@ -18,6 +18,12 @@ namespace DuckTracker.Controllers
     {
         private IPapaNoteRepository _repo = RepositoryFactory.CreatePapaNoteRepo();
 
+        [Route("GetRecent")]
+        public IHttpActionResult GetRecent()
+        {
+            return Ok(JsonConvert.SerializeObject(_repo.GetRecent()));
+        }
+
         [Route("Create")]
         [HttpPost]
         public IHttpActionResult Create(JObject jPackage)

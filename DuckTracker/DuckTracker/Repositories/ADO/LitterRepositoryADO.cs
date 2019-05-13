@@ -74,6 +74,42 @@ namespace DuckTracker.Repositories.ADO
             }
         }
 
+        public IEnumerable<LitterQuery> GetRecent()
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                List<LitterQuery> litters = new List<LitterQuery>();
+                conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetRecentLitters";
+
+                conn.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        LitterQuery current = new LitterQuery();
+
+                        current.LitterId = (int)dr["LitterId"];
+                        current.MamaDogId = (int)dr["MamaDogId"];
+                        current.MamaDogName = dr["MamaDogName"].ToString();
+                        current.PapaDogId = (int)dr["PapaDogId"];
+                        current.PapaDogName = dr["PapaDogName"].ToString();
+                        current.BirthDate = (DateTime)dr["BirthDate"];
+                        current.PuppyCount = (byte)dr["PuppyCount"];
+
+                        current.BirthDate.ToShortDateString();
+
+                        litters.Add(current);
+                    }
+                }
+                return litters;
+            }
+        }
+
         public LitterQuery GetById(int id)
         {
             using (SqlConnection conn = new SqlConnection())

@@ -17,6 +17,12 @@ namespace DuckTracker.Controllers
     {
         private ILitterNoteRepository _repo = RepositoryFactory.CreateLitterNoteRepo();
 
+        [Route("GetRecent")]
+        public IHttpActionResult GetRecent()
+        {
+            return Ok(JsonConvert.SerializeObject(_repo.GetRecent()));
+        }
+
         [Route("Create")]
         [HttpPost]
         public IHttpActionResult Create(JObject jPackage)

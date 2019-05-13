@@ -60,5 +60,34 @@ namespace DuckTracker.Controllers
             _repo.Delete(id);
             return Ok();
         }
+
+        [Route("CreateHeat")]
+        [HttpPost]
+        public IHttpActionResult CreateHeat(JObject jPackage)
+        {
+            try
+            {
+                 _repo.CreateHeatPrediction(JsonConvert.DeserializeObject<CreateHeatModel>(jPackage.ToString()));
+                return Ok();
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        [Route("getHeat/{id:int}")]
+        [HttpGet]
+        public IHttpActionResult getHeat(int id)
+        {
+            return Ok(JsonConvert.SerializeObject(_repo.GetHeatPredictionByMamaDogId(id)));
+        }
+
+        [Route("UpcomingHeat")]
+        [HttpGet]
+        public IHttpActionResult UpcomingHeat()
+        {
+            return Ok(JsonConvert.SerializeObject(_repo.GetUpComingHeatPredictions()));
+        }
     }
 }

@@ -38,10 +38,5 @@ namespace DuckTracker.Repositories
         {
             return new LitterNoteRepository();
         }
-
-        public static INoteRepository CreateNoteRepo()
-        {
-            return new NoteRepositoryADO();
-        }
     }
 }

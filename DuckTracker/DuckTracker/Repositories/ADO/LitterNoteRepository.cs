@@ -35,7 +35,7 @@ namespace DuckTracker.Repositories.ADO
             }
         }
 
-        public IEnumerable<LitterNote> GetAll()
+        public IEnumerable<LitterNote> GetRecent()
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -45,7 +45,7 @@ namespace DuckTracker.Repositories.ADO
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "GetAllLitterNotes";
+                cmd.CommandText = "GetRecentLitterNotes";
 
                 conn.Open();
                 using (SqlDataReader dr = cmd.ExecuteReader())

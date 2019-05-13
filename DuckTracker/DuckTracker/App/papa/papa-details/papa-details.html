@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-10 offset-1 rounded" style="background-color:lightgray; margin-bottom: 1%;">
                 <div class="row">
-                    <p class="col-md-3"><b>BirthDate: {{papa.BirthDate}}</b></p>
+                    <p class="col-md-3"><b>BirthDate: {{papa.BirthDate.substring(0,10)}}}}</b></p>
                     <p class="col-md-3"><b>Breed: {{papa.Breed}}</b></p>
                     <p class="col-md-3"><b>Total Puppies: {{papa.PuppyCount}}</b></p>
                     <p class="col-md-3"><b>Total Litters: {{papa.LitterCount}}</b></p>
@@ -27,11 +27,11 @@
                                 <a class="btn btn-sm btn-outline-info" style="margin-right: 7px;" ng-href="index.html#/papa/note/update/{{n.PapaDogNoteId}}">Update</a>
                                 <button class="btn btn-sm btn-outline-danger" ng-click="delete(n.PapaDogNoteId)">Delete</button>
                             </div>
-                            <div class="row">
+                            <div class="row" style="padding-right: 3%;">
                                 <p class="offset-1">{{n.Note}}</p>
                             </div>
                             <div class="row">
-                                <div class="offset-8"><p>{{n.DateCreated}}</p></div>
+                                <div class="offset-9"><p>{{n.DateCreated.substring(0,10)}}</p></div>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                             <a class="btn btn-outline-info" ng-href="index.html#/Mama/{{l.MamaDogId}}">{{l.MamaDogName}}</a>
                         </td>
                         <td>
-                            {{l.BirthDate}}
+                            {{l.BirthDate.substring(0,10)}}
                         </td>
                         <td>
                             {{l.PuppyCount}}

@@ -1,6 +1,6 @@
 ﻿var app = angular.module("litterDetailsModule", []);
 
-app.controller("litterDetailsController", ['$scope', '$http', '$location', function ($scope, $http, $location) {
+app.controller("litterDetailsController", ['$scope', '$route', '$http', '$location', function ($scope, $route, $http, $location) {
     $http.get('http://localhost:64286/api/litter/get/' + $location.path().substring(8)).then(function (response) {
         $scope.litter = JSON.parse(response.data);
 
