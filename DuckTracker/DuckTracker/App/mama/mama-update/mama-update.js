@@ -5,6 +5,7 @@ app.controller('mamaUpdateController', ['$scope', '$http', '$location', function
         $scope.mama = JSON.parse(response.data);
         $scope.Name = $scope.mama.Name;
         $scope.newInfo = $scope.mama;
+        $scope.newInfo.BirthDate = new Date($scope.newInfo.BirthDate);
     });
 
     $scope.submit = function () {

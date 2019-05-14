@@ -3,6 +3,7 @@
 app.controller("litterUpdateController", ['$scope', '$http', '$location', function ($scope, $http, $location) {
     $http.get('http://localhost:64286/api/litter/get/' + $location.path().substring(15)).then(function (response) {
         $scope.litter = JSON.parse(response.data);
+        $scope.litter.BirthDate = new Date($scope.litter.BirthDate);
     });
 
     $http.get('http://localhost:64286/api/mama/getall').then(function (response) {

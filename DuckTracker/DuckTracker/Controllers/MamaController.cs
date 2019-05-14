@@ -43,7 +43,9 @@ namespace DuckTracker.Controllers
         [Route("get/{id:int}")]
         public IHttpActionResult GetById(int id)
         {
-            return Ok(JsonConvert.SerializeObject(_repo.GetById(id)));
+            var model = _repo.GetById(id);
+
+            return Ok(JsonConvert.SerializeObject(model));
         }
 
         [Route("update")]

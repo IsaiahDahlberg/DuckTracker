@@ -5,6 +5,7 @@ app.controller('papaUpdateController', ['$scope', '$http', '$location', function
         $scope.papa = JSON.parse(response.data);
         $scope.Name = $scope.papa.Name;
         $scope.newInfo = $scope.papa;
+        $scope.newInfo.BirthDate = new Date($scope.newInfo.BirthDate);
     });
 
     $scope.submit = function () {
